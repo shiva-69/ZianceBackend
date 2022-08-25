@@ -17,6 +17,9 @@ const create = async(req, res, next) => {
 
 const fetchAll = async(req, res, next) => {
     let users = await Users.find();
+    users.forEach((item) => {
+        delete item.password
+    })
 
     return res.status(200).send(users);
 }
