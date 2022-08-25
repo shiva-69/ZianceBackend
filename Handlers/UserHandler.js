@@ -18,14 +18,42 @@ const create = async(req, res, next) => {
 const fetchAll = async(req, res, next) => {
     let users = await Users.find();
     users.forEach((item) => {
-        delete item.password
+        console.log(item)
+        delete item.password;
+        console.log(item)
     })
 
     return res.status(200).send(users);
 }
 
+const deleteUser = async(req, res, next) => {
+    
+    console.log(id);
+
+    const user = await Users.findByIdAndDelete(id);
+    delete user.password;
+    return res.status(200).send(user);
+}
+
+
+const updateUser = async (req, res, next) => {
+    const {name, email, contact} = req.body;
+    const user = await Users.findOneAndUpdate({email: email}, {name, contact});
+
+    res.status(200).send(user);
+}
+
+const fetchOne = async (req, res, next) => {
+    const {id }= req.params;
+    const user = await Users.findById(id);
+    res.status(200).send(user);
+}
+
 
 module.exports = {
     create,
-    fetchAll
+    fetchAll,
+    deleteUser,
+    updateUser,
+    fetchOne
 }
