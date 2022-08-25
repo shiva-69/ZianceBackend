@@ -27,7 +27,7 @@ const fetchAll = async(req, res, next) => {
 }
 
 const deleteUser = async(req, res, next) => {
-    
+    const {id }= req.params;
     console.log(id);
 
     const user = await Users.findByIdAndDelete(id);
